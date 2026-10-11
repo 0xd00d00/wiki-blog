@@ -1,0 +1,23 @@
+# 검색·인용용 봇은 허용, 모델 학습용 수집은 차단 (봇 목록은 적용 시점에 최신 문서로 확인할 것)
+User-agent: *
+Allow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://0xd00d00.github.io/wiki-blog/sitemap.xml
