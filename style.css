@@ -436,9 +436,9 @@ pre.giallo{border:1px solid var(--line)}
 .graph-group-panel>summary{font-size:13px;font-weight:400;color:var(--ink2)}
 .graph-group-panel .graph-legend{margin:8px 0 0}
 
-/* Mobile shows only the centered identity; wider screens retain navigation. */
+/* Mobile centers navigation; wider screens retain the identity and links. */
 @media(max-width:620px){
   footer.status .wrap{display:flex;justify-content:center;padding:14px 16px}
-  .footer-tagline{text-align:center;width:100%;line-height:1.6}
-  .footer-links{display:none}
+  .footer-tagline{display:none}
+  .footer-links{display:flex;justify-content:center;gap:8px;width:100%}
 }
