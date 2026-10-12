@@ -134,8 +134,13 @@ pre{background:var(--code);border-radius:8px;padding:14px 16px;overflow-x:auto;f
 .backlinks h3{font-size:var(--fs-md);color:var(--ink2);margin:0 0 8px;font-weight:600}
 .backlinks a{color:var(--accent);margin-right:14px}
 
-footer.status{font-family:var(--mono);font-size:var(--fs-sm);background:var(--accent);color:var(--on-accent)}
-footer.status .wrap{display:flex;gap:16px;justify-content:space-between;padding:6px 28px}
+footer.status{font-family:var(--sans);font-size:var(--fs-sm);background:var(--accent-soft);color:var(--ink2);border-top:1px solid var(--line)}
+footer.status .wrap{display:flex;align-items:center;flex-wrap:wrap;gap:4px 20px;justify-content:space-between;padding:10px 22px;width:100%}
+.footer-tagline{word-break:keep-all}
+.footer-links{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.footer-links a{display:inline-flex;align-items:center;min-height:44px;color:var(--ink2)}
+.footer-links a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.footer-links>span{color:var(--ink2);opacity:.5}
 .theme{position:relative;display:flex;padding:3px;border-radius:999px;background:color-mix(in srgb,var(--ink) 8%,transparent)}
 .theme::before{content:"";position:absolute;top:3px;left:3px;width:34px;height:34px;border-radius:50%;background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s ease}
 .theme[data-current="dark"]::before{transform:translateX(34px)}
