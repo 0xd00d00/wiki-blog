@@ -10,13 +10,13 @@
 
 <title>접근성 · 기억 보조용 위키</title>
 <meta name="author" content="널두">
-<meta name="description" content="Rust 기반 ZeroClaw의 AI 에이전트 루프, Tool 트레이트, SQLite 하이브리드 메모리와 보안 경계를 소스 링크·도식·계산 예제로 설명합니다.">
-<link rel="canonical" href="https://0xd00d00.github.io/wiki-blog/wiki/zeroclaw-agent-architecture/">
+<meta name="description" content="웹과 사용자 경험 분야에서 접근성의 개념과 활용을 정리한 임시 테스트 문서입니다.">
+<link rel="canonical" href="https://0xd00d00.github.io/wiki-blog/wiki/demo-2-02/">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="접근성">
-<meta property="og:description" content="Rust 기반 ZeroClaw의 AI 에이전트 루프, Tool 트레이트, SQLite 하이브리드 메모리와 보안 경계를 소스 링크·도식·계산 예제로 설명합니다.">
-<meta property="og:url" content="https://0xd00d00.github.io/wiki-blog/wiki/zeroclaw-agent-architecture/">
+<meta property="og:description" content="웹과 사용자 경험 분야에서 접근성의 개념과 활용을 정리한 임시 테스트 문서입니다.">
+<meta property="og:url" content="https://0xd00d00.github.io/wiki-blog/wiki/demo-2-02/">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="기억 보조용 위키">
 <meta property="og:image" content="https://0xd00d00.github.io/wiki-blog/og-image.png">
@@ -25,14 +25,14 @@
 <meta property="og:image:alt" content="기억 보조용 위키 로고">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="접근성">
-<meta name="twitter:description" content="Rust 기반 ZeroClaw의 AI 에이전트 루프, Tool 트레이트, SQLite 하이브리드 메모리와 보안 경계를 소스 링크·도식·계산 예제로 설명합니다.">
+<meta name="twitter:description" content="웹과 사용자 경험 분야에서 접근성의 개념과 활용을 정리한 임시 테스트 문서입니다.">
 <meta name="twitter:image" content="https://0xd00d00.github.io/wiki-blog/og-image.png">
 
 <meta property="article:published_time" content="2026-10-08T12:00:00+09:00">
 <meta property="article:modified_time" content="2026-10-11T20:43:38+09:00">
 <link rel="alternate" type="text/markdown" href="https://0xd00d00.github.io/wiki-blog/raw/zeroclaw-agent-architecture.md">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":["BlogPosting","TechArticle"],"@id":"https://0xd00d00.github.io/wiki-blog/wiki/zeroclaw-agent-architecture/#article","url":"https://0xd00d00.github.io/wiki-blog/wiki/zeroclaw-agent-architecture/","headline":"접근성","description":"Rust 기반 ZeroClaw의 AI 에이전트 루프, Tool 트레이트, SQLite 하이브리드 메모리와 보안 경계를 소스 링크·도식·계산 예제로 설명합니다.","datePublished":"2026-10-08T12:00:00+09:00","dateModified":"2026-10-11T20:43:38+09:00","inLanguage":"ko","author":{"@type":"Person","name":"널두","url":"https://github.com/0xd00d00"},"isAccessibleForFree":true,"mainEntityOfPage":"https://0xd00d00.github.io/wiki-blog/wiki/zeroclaw-agent-architecture/","keywords":"ai, 에이전트, 아키텍처"}
+{"@context":"https://schema.org","@type":["BlogPosting","TechArticle"],"@id":"https://0xd00d00.github.io/wiki-blog/wiki/demo-2-02/#article","url":"https://0xd00d00.github.io/wiki-blog/wiki/demo-2-02/","headline":"접근성","description":"웹과 사용자 경험 분야에서 접근성의 개념과 활용을 정리한 임시 테스트 문서입니다.","datePublished":"2026-10-08T12:00:00+09:00","dateModified":"2026-10-11T20:43:38+09:00","inLanguage":"ko","author":{"@type":"Person","name":"널두","url":"https://github.com/0xd00d00"},"isAccessibleForFree":true,"mainEntityOfPage":"https://0xd00d00.github.io/wiki-blog/wiki/demo-2-02/","keywords":"ai, 에이전트, 아키텍처"}
 </script>
 
 
@@ -47,7 +47,7 @@
 
 
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"위키","item":"https://0xd00d00.github.io/wiki-blog/"},{"@type":"ListItem","position":2,"name":"dev","item":"https://0xd00d00.github.io/wiki-blog/map/f/dev/"},{"@type":"ListItem","position":3,"name":"ai","item":"https://0xd00d00.github.io/wiki-blog/map/f/dev/ai/"},{"@type":"ListItem","position":4,"name":"접근성","item":"https://0xd00d00.github.io/wiki-blog/wiki/zeroclaw-agent-architecture/"}]}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"위키","item":"https://0xd00d00.github.io/wiki-blog/"},{"@type":"ListItem","position":2,"name":"dev","item":"https://0xd00d00.github.io/wiki-blog/map/f/dev/"},{"@type":"ListItem","position":3,"name":"ai","item":"https://0xd00d00.github.io/wiki-blog/map/f/dev/ai/"},{"@type":"ListItem","position":4,"name":"접근성","item":"https://0xd00d00.github.io/wiki-blog/wiki/demo-2-02/"}]}
 </script>
 
 <meta name="color-scheme" content="dark light">

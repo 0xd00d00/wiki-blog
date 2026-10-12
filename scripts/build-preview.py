@@ -81,6 +81,10 @@ def build(output, demo, port, base_url=None):
             doc = template[:start] + body + template[end+7:]
             doc = doc.replace('<meta name="robots" content="index,follow,max-image-preview:large">','<meta name="robots" content="noindex,follow">')
             doc = doc.replace('ZeroClaw로 보는 AI 에이전트: 루프, 메모리, 그리고 안전장치', title)
+            head, rest = doc.split('</head>', 1)
+            head = head.replace('Rust 기반 ZeroClaw의 AI 에이전트 루프, Tool 트레이트, SQLite 하이브리드 메모리와 보안 경계를 소스 링크·도식·계산 예제로 설명합니다.', html.escape(n['description'], quote=True))
+            head = head.replace(REMOTE + 'wiki/zeroclaw-agent-architecture/', REMOTE + n['url'])
+            doc = head + '</head>' + rest
             target = output / n['url']; target.mkdir(parents=True, exist_ok=True); (target/'index.html').write_text(doc)
             index.append(dict(slug=n['id'], title=n['title'], description=n['description'], tags=n['tags'], icon='📝', updated='2026-10-12',url=n['url']))
         (output/'wiki-index.json').write_text(json.dumps(index, ensure_ascii=False))
