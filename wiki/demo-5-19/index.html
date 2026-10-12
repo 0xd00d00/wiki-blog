@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,follow">
+
+
+
+
+<title>복구 계획 · 기억 보조용 위키</title>
+<meta name="author" content="널두">
+<meta name="description" content="Rust 기반 ZeroClaw의 AI 에이전트 루프, Tool 트레이트, SQLite 하이브리드 메모리와 보안 경계를 소스 링크·도식·계산 예제로 설명합니다.">
+<link rel="canonical" href="https://0xd00d00.github.io/wiki-blog/wiki/zeroclaw-agent-architecture/">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="복구 계획">
+<meta property="og:description" content="Rust 기반 ZeroClaw의 AI 에이전트 루프, Tool 트레이트, SQLite 하이브리드 메모리와 보안 경계를 소스 링크·도식·계산 예제로 설명합니다.">
+<meta property="og:url" content="https://0xd00d00.github.io/wiki-blog/wiki/zeroclaw-agent-architecture/">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="기억 보조용 위키">
+<meta property="og:image" content="https://0xd00d00.github.io/wiki-blog/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="기억 보조용 위키 로고">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="복구 계획">
+<meta name="twitter:description" content="Rust 기반 ZeroClaw의 AI 에이전트 루프, Tool 트레이트, SQLite 하이브리드 메모리와 보안 경계를 소스 링크·도식·계산 예제로 설명합니다.">
+<meta name="twitter:image" content="https://0xd00d00.github.io/wiki-blog/og-image.png">
+
+<meta property="article:published_time" content="2026-10-08T12:00:00+09:00">
+<meta property="article:modified_time" content="2026-10-11T20:43:38+09:00">
+<link rel="alternate" type="text/markdown" href="https://0xd00d00.github.io/wiki-blog/raw/zeroclaw-agent-architecture.md">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":["BlogPosting","TechArticle"],"@id":"https://0xd00d00.github.io/wiki-blog/wiki/zeroclaw-agent-architecture/#article","url":"https://0xd00d00.github.io/wiki-blog/wiki/zeroclaw-agent-architecture/","headline":"복구 계획","description":"Rust 기반 ZeroClaw의 AI 에이전트 루프, Tool 트레이트, SQLite 하이브리드 메모리와 보안 경계를 소스 링크·도식·계산 예제로 설명합니다.","datePublished":"2026-10-08T12:00:00+09:00","dateModified":"2026-10-11T20:43:38+09:00","inLanguage":"ko","author":{"@type":"Person","name":"널두","url":"https://github.com/0xd00d00"},"isAccessibleForFree":true,"mainEntityOfPage":"https://0xd00d00.github.io/wiki-blog/wiki/zeroclaw-agent-architecture/","keywords":"ai, 에이전트, 아키텍처"}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"위키","item":"https://0xd00d00.github.io/wiki-blog/"},{"@type":"ListItem","position":2,"name":"dev","item":"https://0xd00d00.github.io/wiki-blog/map/f/dev/"},{"@type":"ListItem","position":3,"name":"ai","item":"https://0xd00d00.github.io/wiki-blog/map/f/dev/ai/"},{"@type":"ListItem","position":4,"name":"복구 계획","item":"https://0xd00d00.github.io/wiki-blog/wiki/zeroclaw-agent-architecture/"}]}
+</script>
+
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="https://0xd00d00.github.io/wiki-blog/favicon.svg" type="image/svg+xml">
+<link rel="alternate" type="application/atom+xml" title="기억 보조용 위키" href="https://0xd00d00.github.io/wiki-blog/atom.xml">
+<link rel="stylesheet" href="https://0xd00d00.github.io/wiki-blog/style.css">
+<link rel="stylesheet" id="gl-light" href="https://0xd00d00.github.io/wiki-blog/giallo-light.css" media="not all">
+<link rel="stylesheet" id="gl-dark" href="https://0xd00d00.github.io/wiki-blog/giallo-dark.css">
+<script>
+(function(){var t="dark";try{if(localStorage.getItem("theme")==="light")t="light"}catch(e){}
+document.documentElement.setAttribute("data-theme",t);
+document.getElementById("gl-light").media=t==="light"?"all":"not all";
+document.getElementById("gl-dark").media=t==="dark"?"all":"not all"})();
+</script>
+</head>
+<body>
+<div class="site is-doc">
+  <header class="bar"><div class="wrap">
+    <a class="brand" href="https://0xd00d00.github.io/wiki-blog/"><span class="mark" aria-hidden="true">[[]]</span><span><span class="nm">기억 보조용 위키</span><small>Zola + Vimwiki</small></span></a>
+    <nav aria-label="주 메뉴">
+      <a href="https://0xd00d00.github.io/wiki-blog/" class="on">위키</a>
+      <a href="https://0xd00d00.github.io/wiki-blog/tags/" class="">태그</a>
+      <a href="https://0xd00d00.github.io/wiki-blog/map/" class="">지도</a>
+    </nav>
+    <button type="button" class="search" id="searchBtn" aria-haspopup="dialog" aria-controls="sdlg"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="6" r="4.2"/><path d="m9.2 9.2 3.3 3.3"/></svg><span class="lbl">검색</span><span class="kbd">/</span></button>
+    <div class="theme" id="theme" role="group" aria-label="테마" data-current="dark">
+      <button type="button" data-t="light" aria-pressed="false" aria-label="라이트 모드" title="라이트">☀️</button>
+      <button type="button" data-t="dark" aria-pressed="true" aria-label="다크 모드" title="다크">🌙</button>
+    </div>
+  </div></header>
+
+  <main class="wrap"><div class="crumbbar"><a class="back" href="https://0xd00d00.github.io/wiki-blog/map/">← 문서 지도</a></div><p class="hint2">임시 테스트 문서 · 운영과 보안</p><h1>복구 계획</h1><article class="body"><p>운영과 보안 분야에서 복구 계획의 개념과 활용을 정리한 임시 테스트 문서입니다.</p><h2>검토할 내용</h2><p>이 문서는 그래프 탐색과 모바일 레이아웃 검증을 위해 생성했습니다. 같은 주제의 문서를 모으고, 다른 분야와의 연결을 따라 탐색해 보세요.</p><h2>연결된 문서</h2><ul><li><a href="https://0xd00d00.github.io/wiki-blog/wiki/demo-5-01/">자동 배포</a></li><li><a href="https://0xd00d00.github.io/wiki-blog/wiki/demo-5-02/">권한 관리</a></li><li><a href="https://0xd00d00.github.io/wiki-blog/wiki/demo-5-18/">운영 문서</a></li></ul></article></main>
+
+  <footer class="status"><div class="wrap"><span>NORMAL  wiki/dev/ai/zeroclaw-agent-architecture.md</span><span>utf-8  markdown</span></div></footer>
+</div>
+<dialog id="sdlg" aria-label="검색">
+  <div class="sbox">
+    <div class="sin">
+      <svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="6" r="4.2"/><path d="m9.2 9.2 3.3 3.3"/></svg>
+      <input id="sq" type="search" autocomplete="off" spellcheck="false" placeholder="문서 검색  (제목, 설명, #태그)" aria-label="검색어" aria-controls="sres">
+      <button type="button" class="x" id="sclose" aria-label="닫기">Esc</button>
+    </div>
+    <div class="schips" id="schips"></div>
+    <div class="sres" id="sres" role="listbox" aria-label="검색 결과"></div>
+    <div class="sfoot"><span class="hint"><span class="kbd">↑</span><span class="kbd">↓</span>이동</span><span class="hint"><span class="kbd">Enter</span>열기</span><span class="hint"><span class="kbd">Esc</span>닫기</span><span class="cnt" id="scnt" aria-live="polite"></span></div>
+  </div>
+</dialog>
+<script src="https://0xd00d00.github.io/wiki-blog/app.js" data-base="https://0xd00d00.github.io/wiki-blog/" defer></script>
+</body>
+</html>
