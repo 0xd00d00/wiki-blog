@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="ko">
-    <title>기억 보조용 위키 - 에이전트</title>
+    <title>기억을 연결하는 위키 - 에이전트</title>
     <subtitle>개인 위키. 쓰고 저장하면 사이트가 됩니다.</subtitle>
     <link rel="self" type="application/atom+xml" href="https://0xd00d00.github.io/wiki-blog/tags/에이전트/atom.xml"/>
     <link rel="alternate" type="text/html" href="https://0xd00d00.github.io/wiki-blog"/>

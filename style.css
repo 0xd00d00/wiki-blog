@@ -435,3 +435,13 @@ pre.giallo{border:1px solid var(--line)}
 .graph-group-panel{margin:0 0 12px;padding:8px 12px;background:var(--surface)}
 .graph-group-panel>summary{font-size:13px;font-weight:400;color:var(--ink2)}
 .graph-group-panel .graph-legend{margin:8px 0 0}
+
+/* Mobile footer: centered identity, navigation aligned to both sides. */
+@media(max-width:620px){
+  footer.status .wrap{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;padding:14px 16px 8px}
+  .footer-tagline{text-align:center;width:100%;line-height:1.6}
+  .footer-links{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:8px;width:100%}
+  .footer-links>a:first-child{justify-self:start}
+  .footer-links>span:nth-child(2){display:none}
+  .footer-links>a{white-space:nowrap}
+}
