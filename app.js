@@ -293,11 +293,21 @@
   var tabs=document.querySelectorAll(".tabs button");
   if(!tabs.length)return;
   function show(name){
-    tabs.forEach(function(b){b.setAttribute("aria-selected",b.dataset.pane===name)});
+    tabs.forEach(function(b){b.setAttribute("aria-selected",b.dataset.pane===name);b.tabIndex=b.dataset.pane===name?0:-1});
     document.querySelectorAll(".pane").forEach(function(p){p.hidden=p.id!=="pane-"+name});
     try{sessionStorage.setItem("mapTab",name)}catch(e){}
   }
-  tabs.forEach(function(b){b.addEventListener("click",function(){show(b.dataset.pane)})});
+  tabs.forEach(function(b,i){
+    b.addEventListener("click",function(){show(b.dataset.pane)});
+    b.addEventListener("keydown",function(e){
+      var next;
+      if(e.key==="ArrowRight")next=(i+1)%tabs.length;
+      else if(e.key==="ArrowLeft")next=(i+tabs.length-1)%tabs.length;
+      else if(e.key==="Home")next=0;
+      else if(e.key==="End")next=tabs.length-1;
+      if(next!==undefined){e.preventDefault();tabs[next].focus();show(tabs[next].dataset.pane)}
+    });
+  });
   var want=(location.hash||"").replace("#","");
   var saved=null;try{saved=sessionStorage.getItem("mapTab")}catch(e){}
   show(want==="folders"||want==="links"?want:(saved||"links"));

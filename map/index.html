@@ -59,19 +59,40 @@ document.getElementById("gl-dark").media=t==="dark"?"all":"not all"})();
 
 <div class="pagehead"><h1>문서 지도</h1><span class="sub">1개 문서</span></div>
 <div class="tabs" role="tablist" aria-label="보기 방식">
-  <button type="button" role="tab" id="tab-links" aria-selected="true" aria-controls="pane-links" data-pane="links">링크 트리</button>
-  <button type="button" role="tab" id="tab-folders" aria-selected="false" aria-controls="pane-folders" data-pane="folders">폴더 트리</button>
+  <button type="button" role="tab" id="tab-links" aria-selected="true" aria-controls="pane-links" data-pane="links">지식 그래프</button>
+  <button type="button" role="tab" id="tab-folders" aria-selected="false" aria-controls="pane-folders" data-pane="folders">폴더 구조</button>
 </div>
 <section class="pane" id="pane-links" role="tabpanel" aria-labelledby="tab-links">
-  <p class="hint2">인덱스에서 <code>[[링크]]</code>를 따라 내려간 구조입니다. 여러 곳에서 링크된 문서는 처음 나온 자리에만 표시합니다.</p>
-  
-  
-  
-  <h2 class="mh">어디에도 연결되지 않은 문서 <span class="mn">1</span></h2>
-  <ul class="tree flat"><li><a href="https://0xd00d00.github.io/wiki-blog/wiki/zeroclaw-agent-architecture/"><span class="ei" aria-hidden="true">🦀</span>ZeroClaw로 보는 AI 에이전트: 루프, 메모리, 그리고 안전장치</a></li></ul>
-  
+  <p class="hint2">문서는 점으로, 문서 간 링크는 선으로 표시합니다. 문서를 선택하면 연결된 문서를 볼 수 있습니다.</p>
+  <div class="graph-toolbar">
+    <label class="graph-search">문서 찾기 <input id="graphQuery" type="search" placeholder="제목으로 찾기" autocomplete="off"></label>
+    <label>태그 <select id="graphTag"><option value="">전체</option></select></label>
+    <label class="graph-check"><input id="graphLocal" type="checkbox"> 선택 문서 주변만</label>
+  </div>
+  <details class="graph-settings"><summary>그래프 설정</summary>
+    <div class="graph-settings-grid">
+      <label>점 사이 간격 <input id="graphDistance" type="range" min="30" max="110" value="55"></label>
+      <label>밀어내는 힘 <input id="graphRepel" type="range" min="200" max="2200" value="900"></label>
+      <label>연결의 당기는 힘 <input id="graphLink" type="range" min="1" max="8" value="3"></label>
+      <label class="graph-check"><input id="graphMotion" type="checkbox" checked> 배치 애니메이션</label>
+    </div>
+    <p class="hint2">연결된 문서는 서로 당기고, 문서 점은 서로 밀어내며 자리를 잡습니다.</p>
+  </details>
+  <div class="graph-stage" id="graphStage">
+    <svg id="knowledgeGraph" viewBox="0 0 900 600" role="group" aria-label="문서 연결 그래프"><title>문서 연결 그래프</title><g id="graphView"></g></svg>
+    <div class="graph-controls" role="group" aria-label="그래프 확대와 이동">
+      <button type="button" id="graphZoomIn" aria-label="확대">＋</button>
+      <button type="button" id="graphZoomOut" aria-label="축소">−</button>
+      <button type="button" id="graphReset">전체 보기</button>
+    </div>
+  </div>
+  <p class="graph-summary" id="graphSummary" role="status">문서 연결을 불러오는 중…</p>
+  <p class="hint2 graph-help">빈 공간 드래그로 이동 · 문서 점 드래그로 배치 · 휠/버튼으로 확대 · 두 손가락으로 확대/이동 · 빈 공간을 눌러 선택 해제</p>
+  <div class="graph-detail" id="graphDetail" hidden></div>
+  <details class="graph-document-list"><summary>문서 목록으로 보기</summary><ul id="graphDocuments"></ul></details>
+  <noscript><p>그래프는 JavaScript가 필요합니다. 폴더 구조는 아래에서 확인할 수 있습니다.</p></noscript>
 </section>
-<section class="pane" id="pane-folders" role="tabpanel" aria-labelledby="tab-folders" hidden>
+<section class="pane" id="pane-folders" role="tabpanel" aria-labelledby="tab-folders">
   <p class="hint2">원본 <code>wiki/</code> 폴더 구조 그대로입니다. 폴더는 주소에는 쓰이지 않습니다.</p>
   <ul class="tree">
   <li class="dir"><details open><summary><span class="fd" aria-hidden="true">📁</span><a class="dirlink" href="https://0xd00d00.github.io/wiki-blog/map/f/dev/">dev</a><span class="mn">1</span></summary><ul><li class="dir"><details open><summary><span class="fd" aria-hidden="true">📁</span><a class="dirlink" href="https://0xd00d00.github.io/wiki-blog/map/f/dev/ai/">ai</a><span class="mn">1</span></summary><ul><li><a href="https://0xd00d00.github.io/wiki-blog/wiki/zeroclaw-agent-architecture/"><span class="ei" aria-hidden="true">🦀</span>ZeroClaw로 보는 AI 에이전트: 루프, 메모리, 그리고 안전장치</a></li></ul></details></li></ul></details></li>
@@ -96,5 +117,7 @@ document.getElementById("gl-dark").media=t==="dark"?"all":"not all"})();
   </div>
 </dialog>
 <script src="https://0xd00d00.github.io/wiki-blog/app.js" data-base="https://0xd00d00.github.io/wiki-blog/" defer></script>
+<script src="https://0xd00d00.github.io/wiki-blog/graph-physics.js" defer></script>
+<script src="https://0xd00d00.github.io/wiki-blog/graph.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,21 @@
+{
+  "demo": false,
+  "groups": [
+    "문서"
+  ],
+  "nodes": [
+    {
+      "id": "zeroclaw-agent-architecture",
+      "title": "ZeroClaw로 보는 AI 에이전트: 루프, 메모리, 그리고 안전장치",
+      "description": "Rust 기반 ZeroClaw의 AI 에이전트 루프, Tool 트레이트, SQLite 하이브리드 메모리와 보안 경계를 소스 링크·도식·계산 예제로 설명합니다.",
+      "tags": [
+        "ai",
+        "에이전트",
+        "아키텍처"
+      ],
+      "url": "wiki/zeroclaw-agent-architecture/",
+      "group": 0
+    }
+  ],
+  "links": []
+}
